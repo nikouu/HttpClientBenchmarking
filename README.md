@@ -1,5 +1,5 @@
 # HttpClientBenchmarking
-Benchmarking different ways C#'s `HttpClient` is used so we can all better understand performance and use cases.
+Benchmarking different ways C#'s `HttpClient` is used so we can all better understand performance and use cases in .NET 8.
 
 ## How to run
 1. Get the repo
@@ -177,6 +177,7 @@ This repo references or is inspired by the following people and their work:
 - For the sake of simplicity there is no response checking or validating.
 - You may find different performance depending on your hardware, OS, data, network speed, data type, etc. 
 - Deserializing JSON was chosen as it's widely understood and a common workflow with `HttpClient`. So much so, we get the `GetFromJsonAsync()` extension method.
+- This repo does not look at `IHttpClientFactory`.
 
 ## Other Links
 - [HttpClient Class via Microsoft](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=net-8.0)
