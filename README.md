@@ -1,5 +1,5 @@
 # HttpClientBenchmarking
-Benchmarking every way I can find people using C#'s HttpClient so we can all better understand performance and use cases.
+Benchmarking ways C#'s `HttpClient` being used so we can all better understand performance and use cases.
 
 ## How to run
 1. Get the repo
@@ -8,8 +8,8 @@ Benchmarking every way I can find people using C#'s HttpClient so we can all bet
 
 ## Test Scenario
 
-1. Firing off requests for some JSON data to a given endpoint for some JSON data. 
-1. The data is then deserialized. 
+1. Firing off requests for JSON data from a given API 
+1. The data is then deserialized
 
 There are nine ways of using `HttpClient` to get JSON data and they are compared for n = 10, 100, 1000, 10000 JSON object sizes.
 
@@ -81,7 +81,7 @@ The JSON data is from the default .NET minimal API example, and looks like:
 | GetFromJsonAsync                            | 10000 | 5,462.2 μs |  56.19 μs |  46.92 μs | 5,465.0 μs |  0.70 |    0.03 |  101.5625 |   62.5000 |  39.0625 |  650.25 KB |        0.13 |
 
 ```
-Endpoint    : Value of the 'Endpoint' parameter
+Size        : Value of the 'Size' parameter
 Mean        : Arithmetic mean of all measurements
 Error       : Half of 99.9% confidence interval
 StdDev      : Standard deviation of all measurements
@@ -106,9 +106,13 @@ In short, the focus on performance for .NET 8 really shows.
 
 ## Short Analysis
 
+*The benchmark test cases can be found in [HttpClientBenchmarks.cs](src/HttpClientBenchmarking/HttpClientBenchmarks.cs)*
+
 The test functions `GetStreamAsync()` and `GetFromJsonAsync()` are the simpliest and easiest to use with being among the top in performance for both execution time and memory allocation when compared to the default `GetAsync_ReadAsStringAsync()` test case. 
 
+The test cases:
 ```csharp
+// top performer
 public async Task GetStreamAsync()
 {
     using var stream = await _httpClient.GetStreamAsync(_url);
@@ -118,11 +122,26 @@ public async Task GetStreamAsync()
 ```
 
 ```csharp
+// top performer
 public async Task GetFromJsonAsync()
 {
     var data = await _httpClient.GetFromJsonAsync<List<WeatherForecast>>(_url);
 }
 ```
+
+```csharp
+// baseline
+public async Task GetAsync_ReadAsStringAsync()
+{
+    using HttpResponseMessage response = await _httpClient.GetAsync(_url);
+
+    var jsonResponse = await response.Content.ReadAsStringAsync();
+
+    // Note this is NOT async when dealing with string input
+    var data = JsonSerializer.Deserialize<List<WeatherForecast>>(jsonResponse);
+}
+```
+
 Why are these good? They pass the `Stream` straight back to the user without buffering it - I.E. the data does not get copied into another `MemoryStream` *then* returned to the user. We can see the stream is passed back in the source [HttpClient.cs#L346](https://github.com/dotnet/runtime/blob/f83838b2ba88f8db115588ec2eab82b2993ccab4/src/libraries/System.Net.Http/src/System/Net/Http/HttpClient.cs#L346) file. The extension method `GetFromJsonAsync()` works the same way as seen in [HttpContentJsonExtensions.cs#L136](https://github.com/dotnet/runtime/blob/f83838b2ba88f8db115588ec2eab82b2993ccab4/src/libraries/System.Net.Http.Json/src/System/Net/Http/Json/HttpContentJsonExtensions.cs#L136).
 
 This explains why `GetAsync_ReadAsStreamAsync_CompletionOption()` and `GetAsync_ReadFromJsonAsync_CompletionOption()` test methods are equally as good. Due to the `HttpCompletionOption.ResponseHeadersRead` option, we can also avoid the extra copy. We can see that in action ourselves in the source [HttpClient.cs#L479](https://github.com/dotnet/runtime/blob/f83838b2ba88f8db115588ec2eab82b2993ccab4/src/libraries/System.Net.Http/src/System/Net/Http/HttpClient.cs#L479) file.
