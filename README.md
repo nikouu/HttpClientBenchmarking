@@ -1,5 +1,5 @@
 # HttpClientBenchmarking
-Benchmarking ways C#'s `HttpClient` being used so we can all better understand performance and use cases.
+Benchmarking different ways C#'s `HttpClient` is used so we can all better understand performance and use cases.
 
 ## How to run
 1. Get the repo
