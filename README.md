@@ -108,7 +108,7 @@ In short, the focus on performance for .NET 8 really shows.
 
 *The benchmark test cases can be found in [HttpClientBenchmarks.cs](src/HttpClientBenchmarking/HttpClientBenchmarks.cs)*
 
-The test functions `GetStreamAsync()` and `GetFromJsonAsync()` are the simpliest and easiest to use with being among the top in performance for both execution time and memory allocation when compared to the default `GetAsync_ReadAsStringAsync()` test case. 
+The test functions `GetStreamAsync()` and `GetFromJsonAsync()` are the simpliest and easiest to use with being among the top in performance for both execution time and memory allocation when compared to the baseline `GetAsync_ReadAsStringAsync()` test case. 
 
 The test cases:
 ```csharp
