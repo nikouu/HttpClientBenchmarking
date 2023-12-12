@@ -175,6 +175,8 @@ This repo references or is inspired by the following people and their work:
 
 ## Notes
 - For the sake of simplicity there is no response checking or validating.
+- Similarly for brevity, no `CancellationToken` objects are used.- 
+- No [decompression flags](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpclienthandler.automaticdecompression?view=net-8.0#system-net-http-httpclienthandler-automaticdecompression) are explicitly set for simplicity.
 - You may find different performance depending on your hardware, OS, data, network speed, data type, etc. 
 - Deserializing JSON was chosen as it's widely understood and a common workflow with `HttpClient`. So much so, we get the `GetFromJsonAsync()` extension method.
 - This repo does not look at `IHttpClientFactory`.
