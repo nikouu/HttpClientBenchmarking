@@ -1,5 +1,5 @@
 # HttpClientBenchmarking
-Benchmarking different ways C#'s `HttpClient` is used so we can all better understand performance and use cases in .NET 8.
+Benchmarking different ways C#'s `HttpClient` is used for GET calls so we can all better understand performance and use cases in .NET 8.
 
 ## How to run
 1. Get the repo
