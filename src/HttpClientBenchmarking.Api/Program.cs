@@ -13,48 +13,9 @@ var summaries = new[]
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
-app.MapGet("/weatherforecast/small", () =>
+app.MapGet("/weatherforecast/{size}", (int size) =>
 {
-    var forecast = Enumerable.Range(1, 10).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-});
-
-app.MapGet("/weatherforecast/medium", () =>
-{
-    var forecast = Enumerable.Range(1, 100).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-});
-
-app.MapGet("/weatherforecast/large", () =>
-{
-    var forecast = Enumerable.Range(1, 1000).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-});
-
-app.MapGet("/weatherforecast/extralarge", () =>
-{
-    var forecast = Enumerable.Range(1, 10000).Select(index =>
+    var forecast = Enumerable.Range(1, size).Select(index =>
         new WeatherForecast
         (
             DateOnly.FromDateTime(DateTime.Now.AddDays(index)),

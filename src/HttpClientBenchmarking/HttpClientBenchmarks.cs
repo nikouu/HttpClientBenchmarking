@@ -1,29 +1,34 @@
 ﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Jobs;
 using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace HttpClientBenchmarking
 {
+    //[SimpleJob(RuntimeMoniker.Net60, baseline: true)]
+    //[SimpleJob(RuntimeMoniker.Net70)]
+    [SimpleJob(RuntimeMoniker.Net80)]
     [MemoryDiagnoser]
+    [RPlotExporter]
     public class HttpClientBenchmarks
     {
         private HttpClient _httpClient;
         private Uri _url;
 
-        [Params("small", "medium", "large", "extralarge")]
-        public string Endpoint;
+        [Params(10, 100, 1000, 10000)]
+        public int Size;
 
         [GlobalSetup]
         public void Setup()
         {
             _httpClient = new HttpClient();
-            _url = new Uri(@$"http://localhost:5016/weatherforecast/{Endpoint}");
+            _url = new Uri(@$"http://localhost:5016/weatherforecast/{Size}");
         }
 
         [GlobalCleanup]
         public void Cleanup()
         {
-            _httpClient.Dispose();
+            _httpClient?.Dispose();
         }
 
         [Benchmark(Baseline = true)]
@@ -99,6 +104,12 @@ namespace HttpClientBenchmarking
 
             // Note this is NOT async when dealing with string input
             var data = JsonSerializer.Deserialize<List<WeatherForecast>>(json);
+        }
+
+        [Benchmark]
+        public async Task GetFromJsonAsync()
+        {
+            var data = await _httpClient.GetFromJsonAsync<List<WeatherForecast>>(_url);
         }
     }
 }
