@@ -34,9 +34,10 @@ The JSON data is from the default .NET minimal API example, and looks like:
 
 ## Results
 
-*The generated graph order does not match the order of the results table* 😢
+*Lower is better*
 
 ![](results/dotnet8/HttpClientBenchmarking.HttpClientBenchmarks-barplot-modified.png)
+*The generated graph order does not match the order of the results table* 😢
 
 | Method                                      | Size  | Mean       | Error     | StdDev    | Median     | Ratio | RatioSD | Gen0      | Gen1      | Gen2     | Allocated  | Alloc Ratio |
 |-------------------------------------------- |------ |-----------:|----------:|----------:|-----------:|------:|--------:|----------:|----------:|---------:|-----------:|------------:|
