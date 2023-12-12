@@ -81,7 +81,7 @@ The JSON data is from the default .NET minimal API example, and looks like:
 | GetFromJsonAsync                            | 10000 | 5,462.2 μs |  56.19 μs |  46.92 μs | 5,465.0 μs |  0.70 |    0.03 |  101.5625 |   62.5000 |  39.0625 |  650.25 KB |        0.13 |
 
 ```
-Size        : Value of the 'Size' parameter
+Size        : Value of the 'Size' parameter - the number of weather records returned per request
 Mean        : Arithmetic mean of all measurements
 Error       : Half of 99.9% confidence interval
 StdDev      : Standard deviation of all measurements
