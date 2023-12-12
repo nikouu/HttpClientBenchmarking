@@ -175,6 +175,8 @@ This repo references or is inspired by the following people and their work:
 
 ## Notes
 - For the sake of simplicity there is no response checking or validating.
+- You may find different performance depending on your hardware, OS, data, network speed, data type, etc. 
+- Deserializing JSON was chosen as it's widely understood and a common workflow with `HttpClient`. So much so, we get the `GetFromJsonAsync()` extension method.
 
 ## Other Links
 - [HttpClient Class via Microsoft](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=net-8.0)
