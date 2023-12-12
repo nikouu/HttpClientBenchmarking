@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>HttpClientBenchmarking.HttpClientBenchmarks-20231212-182922</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; text-align: right; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet v0.13.11, Windows 10 (10.0.19045.3693/22H2/2022Update)
+Intel Core i7-7700K CPU 4.20GHz (Kaby Lake), 1 CPU, 8 logical and 4 physical cores
+.NET SDK 8.0.100
+  [Host]   : .NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2
+  .NET 8.0 : .NET 8.0.0 (8.0.23.53103), X64 RyuJIT AVX2
+</code></pre>
+<pre><code>Job=.NET 8.0  Runtime=.NET 8.0  
+</code></pre>
+
+<table>
+<thead><tr><th>Method                               </th><th>Size</th><th>Mean</th><th>Error</th><th>StdDev</th><th>Median</th><th>Ratio</th><th>RatioSD</th><th>Gen0</th><th>Gen1</th><th>Gen2</th><th>Allocated</th><th>Alloc Ratio</th>
+</tr>
+</thead><tbody><tr><td>GetAsync_ReadAsStringAsync</td><td>10</td><td>113.1 &mu;s</td><td>1.95 &mu;s</td><td>1.73 &mu;s</td><td>112.2 &mu;s</td><td>1.00</td><td>0.00</td><td>1.2207</td><td>-</td><td>-</td><td>5.67 KB</td><td>1.00</td>
+</tr><tr><td>GetAsync_ReadAsStreamAsync</td><td>10</td><td>110.4 &mu;s</td><td>1.42 &mu;s</td><td>1.19 &mu;s</td><td>110.6 &mu;s</td><td>0.98</td><td>0.02</td><td>0.9766</td><td>-</td><td>-</td><td>3.97 KB</td><td>0.70</td>
+</tr><tr><td>GetAsync_ReadFromJsonAsync</td><td>10</td><td>112.8 &mu;s</td><td>1.69 &mu;s</td><td>1.58 &mu;s</td><td>112.1 &mu;s</td><td>1.00</td><td>0.02</td><td>0.9766</td><td>-</td><td>-</td><td>4.27 KB</td><td>0.75</td>
+</tr><tr><td>GetAsync_ReadAsStringAsync_CompletionOption</td><td>10</td><td>112.0 &mu;s</td><td>0.91 &mu;s</td><td>0.81 &mu;s</td><td>111.8 &mu;s</td><td>0.99</td><td>0.02</td><td>1.2207</td><td>-</td><td>-</td><td>5.67 KB</td><td>1.00</td>
+</tr><tr><td>GetAsync_ReadAsStreamAsync_CompletionOption</td><td>10</td><td>112.2 &mu;s</td><td>0.99 &mu;s</td><td>0.82 &mu;s</td><td>112.4 &mu;s</td><td>0.99</td><td>0.02</td><td>0.7324</td><td>-</td><td>-</td><td>3.05 KB</td><td>0.54</td>
+</tr><tr><td>GetAsync_ReadFromJsonAsync_CompletionOption</td><td>10</td><td>115.1 &mu;s</td><td>2.10 &mu;s</td><td>4.91 &mu;s</td><td>112.8 &mu;s</td><td>1.01</td><td>0.03</td><td>0.7324</td><td>-</td><td>-</td><td>3.35 KB</td><td>0.59</td>
+</tr><tr><td>GetStreamAsync</td><td>10</td><td>113.0 &mu;s</td><td>0.72 &mu;s</td><td>0.57 &mu;s</td><td>112.9 &mu;s</td><td>1.00</td><td>0.02</td><td>0.7324</td><td>-</td><td>-</td><td>2.97 KB</td><td>0.52</td>
+</tr><tr><td>GetStringAsync</td><td>10</td><td>111.9 &mu;s</td><td>1.88 &mu;s</td><td>1.57 &mu;s</td><td>111.4 &mu;s</td><td>0.99</td><td>0.02</td><td>0.9766</td><td>-</td><td>-</td><td>4.8 KB</td><td>0.85</td>
+</tr><tr><td>GetFromJsonAsync</td><td>10</td><td>111.9 &mu;s</td><td>0.66 &mu;s</td><td>0.62 &mu;s</td><td>111.9 &mu;s</td><td>0.99</td><td>0.02</td><td>0.7324</td><td>-</td><td>-</td><td>3.72 KB</td><td>0.66</td>
+</tr><tr><td>GetAsync_ReadAsStringAsync</td><td>100</td><td>181.7 &mu;s</td><td>1.10 &mu;s</td><td>0.98 &mu;s</td><td>181.7 &mu;s</td><td>1.00</td><td>0.00</td><td>8.3008</td><td>0.4883</td><td>-</td><td>35.39 KB</td><td>1.00</td>
+</tr><tr><td>GetAsync_ReadAsStreamAsync</td><td>100</td><td>178.9 &mu;s</td><td>2.15 &mu;s</td><td>1.91 &mu;s</td><td>178.5 &mu;s</td><td>0.98</td><td>0.01</td><td>4.8828</td><td>-</td><td>-</td><td>20.13 KB</td><td>0.57</td>
+</tr><tr><td>GetAsync_ReadFromJsonAsync</td><td>100</td><td>183.6 &mu;s</td><td>3.58 &mu;s</td><td>5.58 &mu;s</td><td>180.8 &mu;s</td><td>1.01</td><td>0.03</td><td>4.8828</td><td>-</td><td>-</td><td>20.42 KB</td><td>0.58</td>
+</tr><tr><td>GetAsync_ReadAsStringAsync_CompletionOption</td><td>100</td><td>181.4 &mu;s</td><td>0.97 &mu;s</td><td>0.76 &mu;s</td><td>181.5 &mu;s</td><td>1.00</td><td>0.01</td><td>8.3008</td><td>-</td><td>-</td><td>35.39 KB</td><td>1.00</td>
+</tr><tr><td>GetAsync_ReadAsStreamAsync_CompletionOption</td><td>100</td><td>175.9 &mu;s</td><td>0.98 &mu;s</td><td>0.87 &mu;s</td><td>175.9 &mu;s</td><td>0.97</td><td>0.01</td><td>1.9531</td><td>-</td><td>-</td><td>8.39 KB</td><td>0.24</td>
+</tr><tr><td>GetAsync_ReadFromJsonAsync_CompletionOption</td><td>100</td><td>177.1 &mu;s</td><td>1.16 &mu;s</td><td>0.97 &mu;s</td><td>176.7 &mu;s</td><td>0.97</td><td>0.01</td><td>1.9531</td><td>-</td><td>-</td><td>8.69 KB</td><td>0.25</td>
+</tr><tr><td>GetStreamAsync</td><td>100</td><td>176.7 &mu;s</td><td>2.67 &mu;s</td><td>2.37 &mu;s</td><td>176.0 &mu;s</td><td>0.97</td><td>0.01</td><td>1.9531</td><td>-</td><td>-</td><td>8.3 KB</td><td>0.23</td>
+</tr><tr><td>GetStringAsync</td><td>100</td><td>180.2 &mu;s</td><td>1.45 &mu;s</td><td>1.36 &mu;s</td><td>179.9 &mu;s</td><td>0.99</td><td>0.01</td><td>5.8594</td><td>-</td><td>-</td><td>23.7 KB</td><td>0.67</td>
+</tr><tr><td>GetFromJsonAsync</td><td>100</td><td>182.4 &mu;s</td><td>3.22 &mu;s</td><td>5.37 &mu;s</td><td>179.3 &mu;s</td><td>1.02</td><td>0.03</td><td>1.9531</td><td>-</td><td>-</td><td>9.2 KB</td><td>0.26</td>
+</tr><tr><td>GetAsync_ReadAsStringAsync</td><td>1000</td><td>841.4 &mu;s</td><td>12.98 &mu;s</td><td>10.13 &mu;s</td><td>842.6 &mu;s</td><td>1.00</td><td>0.00</td><td>126.9531</td><td>83.9844</td><td>82.0313</td><td>457.04 KB</td><td>1.00</td>
+</tr><tr><td>GetAsync_ReadAsStreamAsync</td><td>1000</td><td>881.0 &mu;s</td><td>6.81 &mu;s</td><td>5.68 &mu;s</td><td>880.1 &mu;s</td><td>1.05</td><td>0.02</td><td>78.1250</td><td>39.0625</td><td>39.0625</td><td>305.84 KB</td><td>0.67</td>
+</tr><tr><td>GetAsync_ReadFromJsonAsync</td><td>1000</td><td>877.0 &mu;s</td><td>6.78 &mu;s</td><td>6.34 &mu;s</td><td>876.2 &mu;s</td><td>1.04</td><td>0.01</td><td>78.1250</td><td>39.0625</td><td>39.0625</td><td>306.14 KB</td><td>0.67</td>
+</tr><tr><td>GetAsync_ReadAsStringAsync_CompletionOption</td><td>1000</td><td>846.3 &mu;s</td><td>9.44 &mu;s</td><td>7.88 &mu;s</td><td>845.6 &mu;s</td><td>1.01</td><td>0.01</td><td>126.9531</td><td>82.0313</td><td>82.0313</td><td>457.06 KB</td><td>1.00</td>
+</tr><tr><td>GetAsync_ReadAsStreamAsync_CompletionOption</td><td>1000</td><td>660.4 &mu;s</td><td>8.66 &mu;s</td><td>7.67 &mu;s</td><td>659.6 &mu;s</td><td>0.79</td><td>0.01</td><td>13.6719</td><td>-</td><td>-</td><td>58.01 KB</td><td>0.13</td>
+</tr><tr><td>GetAsync_ReadFromJsonAsync_CompletionOption</td><td>1000</td><td>669.4 &mu;s</td><td>13.17 &mu;s</td><td>16.17 &mu;s</td><td>667.4 &mu;s</td><td>0.80</td><td>0.02</td><td>13.6719</td><td>0.9766</td><td>-</td><td>58.23 KB</td><td>0.13</td>
+</tr><tr><td>GetStreamAsync</td><td>1000</td><td>655.7 &mu;s</td><td>7.85 &mu;s</td><td>6.56 &mu;s</td><td>655.4 &mu;s</td><td>0.78</td><td>0.01</td><td>13.6719</td><td>0.9766</td><td>-</td><td>57.91 KB</td><td>0.13</td>
+</tr><tr><td>GetStringAsync</td><td>1000</td><td>876.9 &mu;s</td><td>22.57 &mu;s</td><td>65.13 &mu;s</td><td>845.9 &mu;s</td><td>1.11</td><td>0.12</td><td>56.6406</td><td>42.9688</td><td>42.9688</td><td>209.19 KB</td><td>0.46</td>
+</tr><tr><td>GetFromJsonAsync</td><td>1000</td><td>672.1 &mu;s</td><td>12.43 &mu;s</td><td>10.38 &mu;s</td><td>672.3 &mu;s</td><td>0.80</td><td>0.02</td><td>13.6719</td><td>1.9531</td><td>-</td><td>58.68 KB</td><td>0.13</td>
+</tr><tr><td>GetAsync_ReadAsStringAsync</td><td>10000</td><td>7,793.5 &mu;s</td><td>155.56 &mu;s</td><td>268.34 &mu;s</td><td>7,660.0 &mu;s</td><td>1.00</td><td>0.00</td><td>1093.7500</td><td>1093.7500</td><td>984.3750</td><td>4922.88 KB</td><td>1.00</td>
+</tr><tr><td>GetAsync_ReadAsStreamAsync</td><td>10000</td><td>7,469.3 &mu;s</td><td>114.95 &mu;s</td><td>107.53 &mu;s</td><td>7,488.8 &mu;s</td><td>0.96</td><td>0.04</td><td>593.7500</td><td>593.7500</td><td>500.0000</td><td>2662.29 KB</td><td>0.54</td>
+</tr><tr><td>GetAsync_ReadFromJsonAsync</td><td>10000</td><td>7,467.0 &mu;s</td><td>95.15 &mu;s</td><td>79.45 &mu;s</td><td>7,464.7 &mu;s</td><td>0.96</td><td>0.04</td><td>609.3750</td><td>609.3750</td><td>500.0000</td><td>2662.96 KB</td><td>0.54</td>
+</tr><tr><td>GetAsync_ReadAsStringAsync_CompletionOption</td><td>10000</td><td>7,678.6 &mu;s</td><td>107.05 &mu;s</td><td>100.13 &mu;s</td><td>7,683.3 &mu;s</td><td>0.98</td><td>0.04</td><td>1109.3750</td><td>1046.8750</td><td>984.3750</td><td>4922.51 KB</td><td>1.00</td>
+</tr><tr><td>GetAsync_ReadAsStreamAsync_CompletionOption</td><td>10000</td><td>5,530.7 &mu;s</td><td>95.23 &mu;s</td><td>93.52 &mu;s</td><td>5,509.9 &mu;s</td><td>0.71</td><td>0.03</td><td>101.5625</td><td>62.5000</td><td>39.0625</td><td>649.4 KB</td><td>0.13</td>
+</tr><tr><td>GetAsync_ReadFromJsonAsync_CompletionOption</td><td>10000</td><td>5,575.3 &mu;s</td><td>104.66 &mu;s</td><td>97.90 &mu;s</td><td>5,568.0 &mu;s</td><td>0.71</td><td>0.03</td><td>101.5625</td><td>62.5000</td><td>39.0625</td><td>649.7 KB</td><td>0.13</td>
+</tr><tr><td>GetStreamAsync</td><td>10000</td><td>5,476.0 &mu;s</td><td>50.20 &mu;s</td><td>39.20 &mu;s</td><td>5,473.6 &mu;s</td><td>0.70</td><td>0.03</td><td>101.5625</td><td>62.5000</td><td>39.0625</td><td>649.33 KB</td><td>0.13</td>
+</tr><tr><td>GetStringAsync</td><td>10000</td><td>7,488.2 &mu;s</td><td>120.12 &mu;s</td><td>138.33 &mu;s</td><td>7,458.6 &mu;s</td><td>0.96</td><td>0.04</td><td>250.0000</td><td>242.1875</td><td>164.0625</td><td>2915.64 KB</td><td>0.59</td>
+</tr><tr><td>GetFromJsonAsync</td><td>10000</td><td>5,462.2 &mu;s</td><td>56.19 &mu;s</td><td>46.92 &mu;s</td><td>5,465.0 &mu;s</td><td>0.70</td><td>0.03</td><td>101.5625</td><td>62.5000</td><td>39.0625</td><td>650.25 KB</td><td>0.13</td>
+</tr></tbody></table>
+</body>
+</html>
