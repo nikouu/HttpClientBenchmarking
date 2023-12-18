@@ -1,5 +1,5 @@
 # HttpClientBenchmarking
-Benchmarking ways C#'s `HttpClient` being used so we can all better understand performance and use cases.
+Benchmarking different ways C#'s `HttpClient` is used for GET calls so we can all better understand performance and use cases in .NET 8.
 
 ## How to run
 1. Get the repo
@@ -34,9 +34,10 @@ The JSON data is from the default .NET minimal API example, and looks like:
 
 ## Results
 
-*The generated graph order does not match the order of the results table* 😢
+*Lower is better*
 
 ![](results/dotnet8/HttpClientBenchmarking.HttpClientBenchmarks-barplot-modified.png)
+*The generated graph order does not match the order of the results table* 😢
 
 | Method                                      | Size  | Mean       | Error     | StdDev    | Median     | Ratio | RatioSD | Gen0      | Gen1      | Gen2     | Allocated  | Alloc Ratio |
 |-------------------------------------------- |------ |-----------:|----------:|----------:|-----------:|------:|--------:|----------:|----------:|---------:|-----------:|------------:|
@@ -81,7 +82,7 @@ The JSON data is from the default .NET minimal API example, and looks like:
 | GetFromJsonAsync                            | 10000 | 5,462.2 μs |  56.19 μs |  46.92 μs | 5,465.0 μs |  0.70 |    0.03 |  101.5625 |   62.5000 |  39.0625 |  650.25 KB |        0.13 |
 
 ```
-Size        : Value of the 'Size' parameter
+Size        : Value of the 'Size' parameter - the number of weather records returned per request
 Mean        : Arithmetic mean of all measurements
 Error       : Half of 99.9% confidence interval
 StdDev      : Standard deviation of all measurements
@@ -108,7 +109,7 @@ In short, the focus on performance for .NET 8 really shows.
 
 *The benchmark test cases can be found in [HttpClientBenchmarks.cs](src/HttpClientBenchmarking/HttpClientBenchmarks.cs)*
 
-The test functions `GetStreamAsync()` and `GetFromJsonAsync()` are the simpliest and easiest to use with being among the top in performance for both execution time and memory allocation when compared to the default `GetAsync_ReadAsStringAsync()` test case. 
+The test functions `GetStreamAsync()` and `GetFromJsonAsync()` are the simpliest and easiest to use with being among the top in performance for both execution time and memory allocation when compared to the baseline `GetAsync_ReadAsStringAsync()` test case. 
 
 The test cases:
 ```csharp
@@ -179,8 +180,11 @@ This repo references or is inspired by the following people and their work:
 
 ## Notes
 - For the sake of simplicity there is no response checking or validating.
+- Similarly for brevity, no `CancellationToken` objects are used.
+- No [decompression flags](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpclienthandler.automaticdecompression?view=net-8.0#system-net-http-httpclienthandler-automaticdecompression) are explicitly set for simplicity.
 - You may find different performance depending on your hardware, OS, data, network speed, data type, etc. 
 - Deserializing JSON was chosen as it's widely understood and a common workflow with `HttpClient`. So much so, we get the `GetFromJsonAsync()` extension method.
+- This repo does not look at `IHttpClientFactory`.
 
 ## Other Links
 - [HttpClient Class via Microsoft](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=net-8.0)
