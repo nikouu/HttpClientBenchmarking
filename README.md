@@ -146,7 +146,11 @@ Why are these good? They pass the `Stream` straight back to the user without buf
 
 This explains why `GetAsync_ReadAsStreamAsync_CompletionOption()` and `GetAsync_ReadFromJsonAsync_CompletionOption()` test methods are equally as good. Due to the `HttpCompletionOption.ResponseHeadersRead` option, we can also avoid the extra copy. We can see that in action ourselves in the source [HttpClient.cs#L479](https://github.com/dotnet/runtime/blob/f83838b2ba88f8db115588ec2eab82b2993ccab4/src/libraries/System.Net.Http/src/System/Net/Http/HttpClient.cs#L479) file.
 
-### What about `HttpRequestMessage`?
+### What about `PostAsync()`, `PutAsync()`, `PatchAsync()`, and `DeleteAsync()`?
+
+All of these are convenience overloads for `SendAsync()`. See the source for `[PostAsync()](https://github.com/dotnet/runtime/blob/f83838b2ba88f8db115588ec2eab82b2993ccab4/src/libraries/System.Net.Http/src/System/Net/Http/HttpClient.cs#L387)` and notice how the calls build in each overload until the final call to `SendAsync()`.
+
+### What about `SendAsync()` and `HttpRequestMessage`?
 
 You might've seen `HttpRequestMessage` when seeing `HttpClient` snippets. This object is used for more fine grained control over the request such as changing the verb. All the `SendAsync()` type calls end up using `HttpRequestMessage` in the end, even if all you pass is a URL to `SendAsync()`. Check it out yourself in the source [HttpClient.cs#L324](https://github.com/dotnet/runtime/blob/f83838b2ba88f8db115588ec2eab82b2993ccab4/src/libraries/System.Net.Http/src/System/Net/Http/HttpClient.cs#L324) file.
 
