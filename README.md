@@ -149,7 +149,7 @@ This explains why `GetAsync_ReadAsStreamAsync_CompletionOption()` and `GetAsync_
 
 ### What about `PostAsync()`, `PutAsync()`, `PatchAsync()`, and `DeleteAsync()`?
 
-All of these are convenience overloads for `SendAsync()`. See the source for `[PostAsync()](https://github.com/dotnet/runtime/blob/f83838b2ba88f8db115588ec2eab82b2993ccab4/src/libraries/System.Net.Http/src/System/Net/Http/HttpClient.cs#L387)` and notice how the calls build in each overload until the final call to `SendAsync()`.
+All of these are convenience overloads for `SendAsync()`. See the source for [`PostAsync()`](https://github.com/dotnet/runtime/blob/f83838b2ba88f8db115588ec2eab82b2993ccab4/src/libraries/System.Net.Http/src/System/Net/Http/HttpClient.cs#L387) and notice how the calls build in each overload until the final call to `SendAsync()`.
 
 ### What about `SendAsync()` and `HttpRequestMessage`?
 
